@@ -23,19 +23,19 @@ export default function Post({ postData }) {
   );
 }
 
-export async function getStaticPaths() {
-    const paths = getAllPostIds();
-    return {
-      paths,
-      fallback: false,
-    };
+export async function getStaticPaths() {  // asyncを付与
+  const paths = await getAllPostIds()  // awaitで呼び出し
+  return {
+    paths,
+    fallback: false
   }
-  
-export async function getStaticProps({ params }) {
-    const postData = await getPostData(params.id.join('/'));
-    return {
-      props: {
-        postData,
-      },
-    };
+}
+
+export async function getStaticProps({ params }) {  // asyncを付与
+  const postData = await getPostData(params.id)  // awaitで呼び出し
+  return {
+    props: {
+      postData
+    }
   }
+}
